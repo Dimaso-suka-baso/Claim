@@ -3,35 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Klaim Voucher WhatsApp</title>
+    <title>Hubungi Kami</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>
     <div class="container">
-        <h1>🎉 Klaim Voucher WhatsApp 🎉</h1>
-        <p>Klik tombol di bawah untuk klaim voucher via WhatsApp.</p>
-
-        <a id="whatsapp-btn" class="btn-whatsapp">
-            Klaim via WhatsApp
+        <h1>Klaim voucher</h1>
+        <p>Klik tombol di bawah untuk klaim voucher anda</p>
+        
+        <a href="https://wa.me/6281234567890?text=Halo%2C%20saya%20tertarik%20dengan%20produk%20Anda!" class="btn-whatsapp">
+click me
         </a>
+
+        <h2>Atau Scan QR Code</h2>
+        <div id="qrcode"></div>
     </div>
 
     <script>
-        const nomorWA = "6281234567890"; // Ganti dengan nomor tujuan
-        const baseURL = "https://script.google.com/macros/s/AKfycbxpFgRTIk0P3FZXL0he-snssRD03QIf9v1ssk8PF7PNInoiyZ5M118lLSIJlwj_g9K2/exec"; // Ganti dengan Web App URL dari Google Apps Script
-        
-        document.getElementById("whatsapp-btn").addEventListener("click", function() {
-            let nama = prompt("Masukkan Nama Anda:");
-            if (!nama) return;
-
-            let waLink = `https://wa.me/${nomorWA}?text=Halo%2C%20saya%20${encodeURIComponent(nama)}%20ingin%20klaim%20voucher!`;
-            window.open(waLink, "_blank");
-
-            // Kirim data ke Spreadsheet
-            fetch(`${baseURL}?nama=${encodeURIComponent(nama)}&nomor=${nomorWA}`)
-                .then(response => response.text())
-                .then(data => console.log("Response:", data))
-                .catch(error => console.error("Error:", error));
+        // Buat QR Code untuk link WhatsApp
+        new QRCode(document.getElementById("qrcode"), {
+            text: "https://wa.me/6281234567890?text=Halo%2C%20saya%20tertarik%20dengan%20produk%20Anda!",
+            width: 200,
+            height: 200
         });
     </script>
 
@@ -47,7 +41,7 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            max-width: 500px;
+            max-width: 400px;
             margin: auto;
         }
         .btn-whatsapp {
@@ -59,10 +53,12 @@
             border-radius: 5px;
             text-decoration: none;
             margin-top: 10px;
-            cursor: pointer;
         }
         .btn-whatsapp:hover {
             background: #1ebea5;
+        }
+        #qrcode {
+            margin-top: 10px;
         }
     </style>
 </body>
